@@ -68,7 +68,7 @@ export default class AuthModule extends VuexModule {
 
   @Mutation
   setUser(payload: any) {
-    this.user = payload.ProfileInfo ? payload.ProfileInfo : payload
+    this.user = payload
     this.isLoggedIn = true
   }
 
@@ -154,20 +154,19 @@ export default class AuthModule extends VuexModule {
   async getAccessToken(payload: SignInForm) {
     const { username, password } = payload
     // console.log(username, password)
-    const requestBody: ProxyRequestObject = {
-      endpoint: '/api/auth/signin',
-      data: {
-        username,
-        password
-      },
-      method: 'post'
+    const requestBody = {
+      email: username,
+      password
     }
     try {
-      const result: ResponseObject = await $axios.post('/auth', requestBody)
-      console.log(result)
-      switch (result.data.syscode) {
+      const result: ResponseObject = await $axios.post('/auth/login', requestBody)
+      // console.log(result)
+      switch (result.data.statusCode) {
         case 200:
-          return result.data.data
+          return {
+            ...result.data.data,
+            email: username
+          }
         case 406:
           // Account Error
           return 406

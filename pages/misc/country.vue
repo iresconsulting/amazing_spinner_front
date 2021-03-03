@@ -2,8 +2,16 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <h2 class="mb-4">線下核銷紀錄</h2>
+        <h2 class="mb-4">Countries</h2>
         <v-card outlined>
+          <v-toolbar flat>
+            <v-btn
+              color="primary"
+              @click="$router.push({ name: 'questionnaire-create' })"
+            >
+              <v-icon>mdi-plus</v-icon> Add
+            </v-btn>
+          </v-toolbar>
           <v-card-text>
             <v-data-table
               v-model="selected"
@@ -12,7 +20,7 @@
               :single-select="singleSelect"
               item-key="name"
               show-select
-              class="elevation-1"
+              class="elevation-1 mt-4"
             >
             </v-data-table>
           </v-card-text>
@@ -30,14 +38,12 @@ import { sysStore } from '~/store'
   layout: 'default',
   middleware: 'auth'
 })
-export default class StoreStoreScore extends Vue {
+export default class MiscCountry extends Vue {
   private headers: Array<any> = [
-    { text: '區域', value: 'calories', align: 'start', sortable: false },
-    { text: '類別', value: 'fat', align: 'start', sortable: false },
-    { text: '店名', value: 'fat', align: 'start', sortable: false },
-    { text: '會員代碼', value: 'fat', align: 'start', sortable: false },
-    { text: '評分', value: 'fat', align: 'start', sortable: false },
-    { text: '消費日期', value: 'fat', align: 'start', sortable: false }
+    { text: 'Name', value: 'calories', align: 'start', sortable: true },
+    { text: 'Cities', value: 'carbs', align: 'start', sortable: false },
+    { text: 'Last Updated', value: 'carbs', align: 'start', sortable: false },
+    { text: 'Misc', value: 'carbs', align: 'start', sortable: false }
   ]
 
   // private async sendGetGroupListRequest() {

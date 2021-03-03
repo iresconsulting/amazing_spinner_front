@@ -2,10 +2,10 @@
   <v-main>
     <v-container class="fill-height">
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
+        <v-col cols="12" sm="8">
           <v-card class="elevation-12">
             <v-toolbar color="primary" dark flat>
-              <v-toolbar-title>STAYFUN 登入</v-toolbar-title>
+              <v-toolbar-title>ERP Login</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-icon>mdi-code-tags</v-icon>
             </v-toolbar>
@@ -14,7 +14,7 @@
                 <v-form>
                   <validation-provider v-slot="{ errors }" rules="required">
                     <v-text-field
-                      label="帳號"
+                      label="Username"
                       name="login"
                       prepend-icon="mdi-account"
                       type="text"
@@ -26,7 +26,7 @@
                   <validation-provider v-slot="{ errors }" rules="required">
                     <v-text-field
                       id="password"
-                      label="密碼"
+                      label="Password"
                       name="password"
                       prepend-icon="mdi-lock"
                       type="password"
@@ -45,7 +45,7 @@
                   :disabled="invalid"
                   @click="handleSignIn"
                 >
-                  登入
+                  login
                 </v-btn>
               </v-card-actions>
             </validation-observer>
@@ -85,6 +85,7 @@ import { authStore } from '~/store'
 
 @Component({
   layout: 'login',
+  middleware: ['auth'],
   components: {
     ValidationObserver,
     ValidationProvider
@@ -105,10 +106,11 @@ export default class AccountIndex extends Vue {
   }
 
   private async handleSignIn(valid?: boolean): Promise<any> {
-    if (!valid) return
+    // if (!valid) return
     try {
       this.$nuxt.$loading.start()
       const result = await authStore.getAccessToken(this.form)
+
       if (result === 40102) {
         this.dialog = true
       } else if (result === 406) {
@@ -118,17 +120,17 @@ export default class AccountIndex extends Vue {
       } else if (result === 40101) {
         this.dialogMessage = authStore.errorMessage
         this.dialog = true
-      } else if (result) {
+      } else if (result && result.t) {
         const {
-          AccessToken,
-          ProfileInfo: { isfirstlogin }
+          t
         } = result
-        this.$cookies.set('accessToken', AccessToken, {
+
+        this.$cookies.set('accessToken', t, {
           path: '/',
           maxAge: 60 * 60 * 24 * 7,
           sameSite: true
         })
-        this.$router.push({ name: 'index' })
+        this.$router.push('/')
       }
     } catch (e) {
       // console.log(e)

@@ -3,8 +3,8 @@
   "version": "1.87.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NUXT_ENV_PROXY_URL=http://192.168.27.36:8081 nuxt-ts",
-    "build:dev": "cross-env NODE_ENV=development NUXT_HOST=0.0.0.0 NUXT_PORT=3000 NUXT_ENV_PROXY_URL=http://192.168.27.36:8081 nuxt-ts build",
+    "dev": "cross-env NUXT_ENV_PROXY_URL=http://localhost:8081 nuxt-ts",
+    "build:dev": "cross-env NODE_ENV=development NUXT_HOST=0.0.0.0 NUXT_PORT=3000 NUXT_ENV_PROXY_URL=http://localhost:8081 nuxt-ts build",
     "build": "cross-env NODE_ENV=production NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt-ts build",
     "start": "cross-env NODE_ENV=production NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt-ts start",
     "generate": "cross-env NODE_ENV=production NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt-ts generate",

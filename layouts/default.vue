@@ -73,7 +73,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
         <span class="hidden-sm-and-down" @click="$router.push('/')">
-          STAYFUN
+          ERP
         </span>
       </v-toolbar-title>
       <!-- <v-text-field
@@ -96,9 +96,8 @@
         :offset-y="menuSetting.offsetY"
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" class="mr-5" v-bind="attrs" v-on="on" large>
+          <v-btn color="default" text class="mr-5" v-bind="attrs" v-on="on" large>
             <v-icon>mdi-account-circle</v-icon>
-            <span class="ml-2">{{ username }}</span>
           </v-btn>
         </template>
         <v-list>
@@ -184,19 +183,19 @@
           當前版本
         </v-card-title>
         <v-card-text class="mt-4">
-          STAYFUN Version 1.87.0 <br />
+          Version 1.0.0 <br />
           <strong class="primary--text">更新時間： </strong>
-          2020/9/25 上午7:33:10 <br />
+          2021/3/4 上午12:56:10 <br />
           <div class="mt-7">
-            Copyright © 2017
+            Copyright © 2021
             <a
               class="primary--text text-decoration-none"
-              href="https://www.mayohr.com/stayfun/"
+              href=""
               target="_blank"
             >
-              MAYO Human Capital Inc.
+              123.
             </a>
-            鼎恒數位科技股份有限公司 All rights reserved.
+            123 All rights reserved.
           </div>
         </v-card-text>
         <v-card-actions>
@@ -232,30 +231,14 @@ import { authStore } from '~/store'
 
 @Component
 export default class DefaultLayout extends Vue {
-  private errorDialog: boolean = true
+  private errorDialog: boolean = false
 
   private get username() {
-    return authStore.user ? authStore.user.username : ''
+    return authStore.user ? authStore.user.email : 'Username'
   }
 
   private get companyName() {
-    // return authStore.user
-    //   ? authStore.user.groups.length && authStore.user.mainGroup
-    //     ? authStore.user.groups.find((item: any) => {
-    //         if (authStore.user.mainGroup) {
-    //           return item.groupname === authStore.user
-    //             ? authStore.user.mainGroup
-    //             : ''
-    //         }
-    //       }).groupname
-    //     : ''
-    //   : ''
-
-    return authStore.user
-      ? authStore.user.groups.length
-        ? authStore.user.groups[0].groupname
-        : ''
-      : ''
+    return 'Company Name'
   }
 
   private get dP() {
@@ -294,542 +277,63 @@ export default class DefaultLayout extends Vue {
 
   private items: Array<any> = [
     {
-      icon: 'mdi-cog',
-      'icon-alt': 'mdi-cog-outline',
-      text: '系統管理',
-      model: false,
-      children: [
-        {
-          text: '功能表管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys'
-        },
-        {
-          text: '權限群組管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-permissionGroupSetting'
-        },
-        {
-          text: '公司/群組管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-groupSetting'
-        },
-        {
-          text: '系統人員帳號管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-accountSetting'
-        },
-        {
-          text: '重置密碼',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-resetPassword'
-        },
-        {
-          text: '問卷題型維護',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-questionnaireType'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-bell-alert',
-      'icon-alt': 'mdi-bell-alert-outline',
-      text: '訊息牆管理',
-      model: false,
-      children: [
-        {
-          text: '訊息牆列表',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'announcement'
-        }
-        // {
-        //   text: '發送新訊息',
-        //   icon: 'mdi-checkbox-blank-circle-outline',
-        //   route: 'announcement-create'
-        // }
-      ]
-    },
-    {
-      icon: 'mdi-flask',
-      'icon-alt': 'mdi-flask-outline',
-      text: '問卷管理',
-      model: false,
-      children: [
-        {
-          text: '問卷列表',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'questionnaire'
-        }
-        // {
-        //   text: '新增問卷',
-        //   icon: 'mdi-checkbox-blank-circle-outline',
-        //   route: 'questionnaire-create'
-        // }
-      ]
-    },
-    {
       icon: 'mdi-store',
       'icon-alt': 'mdi-store-outline',
-      text: '特約商家管理',
+      text: 'Institutions',
       model: false,
       children: [
         {
-          text: '特約商家分類',
+          text: 'Mgmt',
           icon: 'mdi-checkbox-blank-circle-outline',
           route: 'store'
-        },
-        {
-          text: '特約商家管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-store'
-        },
-        {
-          text: '優惠類別管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-storeSpecialType'
-        },
-        {
-          text: '特約商家匯入',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-storeImport'
-        },
-        {
-          text: '特約商家通報',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-storeNotice'
-        },
-        {
-          text: '特約商家圖片管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-storeImageManagement'
-        },
-        {
-          text: '點擊紀錄',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-storeClick'
-        },
-        {
-          text: '線下核銷紀錄',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-storeScore'
-        },
-        {
-          text: '特約 Banner 管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-storeBanner'
-        },
-        {
-          text: '首頁圖維護(暫用)',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store-bannerImages'
         }
       ]
     },
     {
-      icon: 'mdi-cash-multiple',
-      'icon-alt': 'mdi-cash',
-      text: '享樂金財務專區',
+      icon: 'mdi-cog',
+      'icon-alt': 'mdi-cog-outline',
+      text: 'Misc',
       model: false,
       children: [
         {
-          text: '供應商資料',
+          text: 'Countries',
           icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance'
+          route: 'misc-country'
         },
         {
-          text: '供應商對帳單',
+          text: 'Levels',
           icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-merchantReport'
+          route: 'misc-level'
         },
         {
-          text: '銷售報表',
+          text: 'Rankings',
           icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-salesReport'
-        },
-        {
-          text: '消費者點數對帳單',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-welfareReport'
-        },
-        {
-          text: '點數餘額對帳單',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-pointBalanceReport'
-        },
-        {
-          text: '點數轉履保管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-pointConversionEscrow'
+          route: 'misc-ranking'
         }
       ]
     },
     {
-      icon: 'mdi-currency-usd-circle',
-      'icon-alt': 'mdi-currency-usd-circle-outline',
-      text: '享樂金點數專區',
+      icon: 'mdi-account-cog',
+      'icon-alt': 'mdi-account-cog-outline',
+      text: 'Accounts',
       model: false,
       children: [
         {
-          text: '點數類別管理',
+          text: 'Mgmt',
           icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'point'
-        },
-        {
-          text: '點數匯入紀錄',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'point-pointImportRecord'
-        },
-        {
-          text: '點數匯入作業',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'point-pointImportOperation'
-        },
-        {
-          text: '帳號點數查詢',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'point-userPointDetail'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-bitcoin',
-      'icon-alt': 'mdi-bitcoin',
-      text: '旅遊金點數專區',
-      model: false,
-      children: [
-        {
-          text: '點數類別管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'travelPoint'
-        },
-        {
-          text: '點數匯入紀錄',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'travelPoint-pointImportRecord'
-        },
-        {
-          text: '點數匯入作業',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'travelPoint-pointImportOperation'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-cloud-sync',
-      'icon-alt': 'mdi-cloud-sync-outline',
-      text: '導入作業專區',
-      model: false,
-      children: [
-        {
-          text: '公司資料查看',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-groupSetting'
-        },
-        {
-          text: '人員資料查看',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-accountSetting'
-        },
-        {
-          text: '快速導入作業',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'sys-importTeam'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-credit-card',
-      'icon-alt': 'mdi-credit-card-outline',
-      text: '票券管理',
-      model: false,
-      children: [
-        {
-          text: '票券列表',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'coupon'
-        },
-        {
-          text: '票券匯入',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'coupon-couponImport'
-        },
-        {
-          text: '票券 Banner 管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'coupon-couponBanner'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-file-cog',
-      'icon-alt': 'mdi-file-cog-outline',
-      text: '享樂金訂單管理',
-      model: false,
-      children: [
-        {
-          text: '票券訂單查詢',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'order'
-        },
-        {
-          text: '票券退貨單',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'order-refundOrder'
-        },
-        {
-          text: '第三方訂單查詢',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'order-purchaseOrder'
-        },
-        {
-          text: '第三方退貨單',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'order-refundPurchaseOrder'
-        },
-        {
-          text: '出貨管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'order-shipping'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-vuejs',
-      'icon-alt': 'mdi-language-javascript',
-      text: '系統維護',
-      model: false,
-      children: [
-        {
-          text: '系統異常訊息',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'syslog'
-        },
-        {
-          text: '人員資料異動紀錄',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'syslog-accountActivityRecord'
-        },
-        {
-          text: '點數匯入資料異動紀錄',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'syslog-pointImportRecord'
-        },
-        {
-          text: '報表下載紀錄',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'syslog-reportDownloadRecord'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-human-male-child',
-      'icon-alt': 'mdi-human-male-boy',
-      text: '揪團樂管理',
-      model: false,
-      children: [
-        {
-          text: '排行榜管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'joinClub'
-        },
-        {
-          text: '下午茶揪團品牌維護',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'joinClub-brand'
-        },
-        {
-          text: '下午茶揪團菜單維護',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'joinClub-menu'
-        },
-        {
-          text: '下午茶揪團店家維護',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'joinClub-store'
-        },
-        {
-          text: '下午茶揪團訂單列表',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'joinClub-order'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-map-marker-multiple',
-      'icon-alt': 'mdi-map-marker-multiple-outline',
-      text: '瘋活動管理',
-      model: false,
-      children: [
-        {
-          text: '活動列表',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funActivity'
-        },
-        // {
-        //   text: '建立活動',
-        //   icon: 'mdi-checkbox-blank-circle-outline',
-        //   route: 'funActivity-funActivityEvents'
-        // },
-        {
-          text: '活動退貨單',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funActivity-refundFunActivityOrder'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-gift',
-      'icon-alt': 'mdi-gift-outline',
-      text: '領好禮',
-      model: false,
-      children: [
-        {
-          text: '禮品維護',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'gift'
-        },
-        {
-          text: '領好禮訊息牆',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'gift-messageList'
-        },
-        {
-          text: '兌換查詢',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'gift-exchangeDetail'
-        }
-        // {
-        //   text: '建立好禮訊息',
-        //   icon: 'mdi-checkbox-blank-circle-outline',
-        //   route: 'gift-message'
-        // }
-      ]
-    },
-    {
-      icon: 'mdi-cart',
-      'icon-alt': 'mdi-cart-outline',
-      text: '好好買管理',
-      model: false,
-      children: [
-        {
-          text: 'Banner 管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funMall'
-        },
-        {
-          text: '熱門賣場管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funMall-shops'
-        },
-        {
-          text: '分頁商品列表管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funMall-products'
-        },
-        {
-          text: '副 Banner 管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funMall-secondaryBanner'
-        },
-        {
-          text: '主題行銷列表管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funMall-advertisements'
-        },
-        {
-          text: '排行榜管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'funMall-rankings'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-source-branch-sync',
-      'icon-alt': 'mdi-source-branch-refresh',
-      text: '版本管理',
-      model: false,
-      children: [
-        {
-          text: '版本列表',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'version'
-        }
-        // {
-        //   text: '新增版本',
-        //   icon: 'mdi-checkbox-blank-circle-outline',
-        //   route: 'version-edit'
-        // }
-      ]
-    },
-    {
-      icon: 'mdi-file-pdf',
-      'icon-alt': 'mdi-file-pdf-outline',
-      text: '津貼中心',
-      model: false,
-      children: [
-        {
-          text: '權限管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'welfare'
-        },
-        {
-          text: '表單維護',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'welfare-categoryList'
-        },
-        {
-          text: '紀錄查詢',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'welfare-reportList'
-        },
-        {
-          text: '結案追蹤',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'welfare-traceList'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-cash-usd',
-      'icon-alt': 'mdi-cash-usd-outline',
-      text: '享樂金銀行專區',
-      model: false,
-      children: [
-        {
-          text: '信託點數對帳單',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-ctcbPointReport'
-        },
-        {
-          text: '水位警示管理',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-escrowLowerLimit'
-        },
-        {
-          text: '信託額度申請',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-escrowDepositApply'
-        },
-        {
-          text: '經辦放行設定',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-escrowDepositReview'
-        },
-        {
-          text: '主管放行設定',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'finance-escrowDepositApprove'
+          route: 'sys'
         }
       ]
     }
   ]
 
-  private async handleLogout(): Promise<any> {
+  private handleLogout(): void {
     try {
       this.$nuxt.$loading.start()
-      const result = await authStore.signOut({
-        token: this.$cookies.get('accessToken')
-      })
+      // const result = await authStore.signOut({
+      //   token: this.$cookies.get('accessToken')
+      // })
+      this.$nuxt.$cookies.remove('accessToken')
       this.$router.push('/account')
     } catch (e) {
       this.errorDialog = true

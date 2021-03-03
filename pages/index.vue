@@ -2,7 +2,7 @@
   <div>
     <v-toolbar flat class="banner">
       <h1>
-        <strong class="primary--text">STAY HERE, ALWAYS HAVE FUN</strong>
+        <strong class="primary--text">Welcome...</strong>
       </h1>
     </v-toolbar>
   </div>

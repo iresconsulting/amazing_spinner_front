@@ -10,28 +10,18 @@ import { ProxyRequestObject, ResponseObject } from 'Http'
   // store
 })
 export default class SysModule extends VuexModule {
-  public permissionList: Array<any> = []
+  public accountList: Array<any> = []
 
   @Mutation
-  setPermissionList(payload: any) {
-    this.permissionList = payload
+  setAccountList(payload: any) {
+    this.accountList = [...payload]
   }
 
-  @Action({ commit: 'setPermissionList' })
-  public async getPermissionList({ token }: any) {
-    const requestBody: ProxyRequestObject = {
-      token,
-      endpoint: '/Backend/Sys/GetPermissionList',
-      method: 'post',
-      data: {
-        start: 0,
-        length: 10
-      }
-    }
-
+  @Action({ commit: 'setAccountList' })
+  public async getAccountList({ token }: any) {
     try {
-      const result: ResponseObject = await $axios.post('/api', requestBody)
-      switch (Number(result.data.syscode)) {
+      const result: ResponseObject = await $axios.get('/user/', { headers: { Authorization: token }})
+      switch (Number(result.data.statusCode)) {
         case 200:
           return result.data.data
         default:
