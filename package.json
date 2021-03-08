@@ -1,6 +1,6 @@
 {
   "name": "cy-cms-central",
-  "version": "1.87.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "cross-env NUXT_ENV_PROXY_URL=http://localhost:8081 nuxt-ts",
