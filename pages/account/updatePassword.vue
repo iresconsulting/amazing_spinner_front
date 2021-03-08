@@ -5,7 +5,7 @@
         <v-col cols="12" sm="8">
           <v-card class="elevation-12">
             <v-toolbar color="primary" dark flat>
-              <v-toolbar-title>修改密碼</v-toolbar-title>
+              <v-toolbar-title>Update Password</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-icon>mdi-code-tags</v-icon>
             </v-toolbar>
@@ -14,7 +14,7 @@
                 <v-form>
                   <validation-provider v-slot="{ errors }" rules="required">
                     <v-text-field
-                      label="帳號"
+                      label="Username"
                       name="login"
                       prepend-icon="mdi-account"
                       type="text"
@@ -25,7 +25,7 @@
                   </validation-provider>
                   <validation-provider v-slot="{ errors }" rules="required">
                     <v-text-field
-                      label="舊密碼"
+                      label="Old Password"
                       name="login"
                       prepend-icon="mdi-lock"
                       type="password"
@@ -40,7 +40,7 @@
                   >
                     <v-text-field
                       id="password"
-                      label="新密碼"
+                      label="New Password"
                       name="password"
                       prepend-icon="mdi-lock"
                       type="password"
@@ -57,7 +57,7 @@
                   >
                     <v-text-field
                       id="rpPassword"
-                      label="確認新密碼"
+                      label="Confirm New Password"
                       name="rpPassword"
                       prepend-icon="mdi-lock"
                       type="password"
@@ -75,11 +75,11 @@
                   :disabled="invalid"
                   @click="handleUpdatePassword"
                 >
-                  提交
+                  Submit
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn color="default" text @click="$router.push('/account')">
-                  返回登入
+                <v-btn color="default" text @click="$router.push('/')">
+                  Cancel
                 </v-btn>
               </v-card-actions>
             </validation-observer>
@@ -90,15 +90,15 @@
     <v-dialog v-model="errorDialog" width="800px">
       <v-card>
         <v-card-title class="primary white--text">
-          提示
+          Hint
         </v-card-title>
         <v-card-text class="mt-4">
-          <h2 class="mt-4">伺服器錯誤，請稍後再試。</h2>
+          <h2 class="mt-4">Server Error. Please try again later.</h2>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="errorDialog = false" large>
-            <strong>關閉</strong>
+            <strong>Close</strong>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -107,7 +107,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'nuxt-property-decorator'
+import { Component, Vue } from 'nuxt-property-decorator'
 import { ProxyRequestObject, ResponseObject } from 'Http'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { $axios } from '~/utils/api'

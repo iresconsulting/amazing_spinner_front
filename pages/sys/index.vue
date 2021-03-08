@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <h2 class="mb-4">Accounts</h2>
+        <h2 class="mb-4">Accounts Management</h2>
         <v-card outlined>
           <v-toolbar flat>
             <v-btn
@@ -33,13 +33,13 @@ import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import { sysStore } from '~/store'
 
 @Component({
-  layout: 'default',
-  middleware: 'auth'
+  layout: 'default'
 })
 export default class SysIndex extends Vue {
   private headers: Array<any> = [
-    { text: 'Email', value: 'email', align: 'start', sortable: true },
-    { text: 'Permission Level', value: '', align: 'start', sortable: true },
+    { text: 'Username', value: 'email', align: 'start', sortable: true },
+    { text: 'Access Rights', value: '', align: 'start', sortable: true },
+    { text: 'User', value: '', align: 'start', sortable: true },
     { text: 'Last Login', value: 'lastLogin', align: 'start', sortable: true },
     { text: 'Misc', value: '', align: 'start', sortable: false }
   ]

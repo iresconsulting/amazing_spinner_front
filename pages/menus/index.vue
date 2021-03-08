@@ -2,12 +2,12 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <h2 class="mb-4">Countries</h2>
+        <h2 class="mb-4">Menus Management</h2>
         <v-card outlined>
           <v-toolbar flat>
             <v-btn
               color="primary"
-              @click="$router.push({ name: 'questionnaire-create' })"
+              @click="$router.push({ name: 'menus-create' })"
             >
               <v-icon>mdi-plus</v-icon> Add
             </v-btn>
@@ -35,14 +35,14 @@ import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import { sysStore } from '~/store'
 
 @Component({
-  layout: 'default',
-  middleware: 'auth'
+  layout: 'default'
 })
-export default class MiscCountry extends Vue {
+export default class MenusIndex extends Vue {
   private headers: Array<any> = [
     { text: 'Name', value: 'calories', align: 'start', sortable: true },
-    { text: 'Cities', value: 'carbs', align: 'start', sortable: false },
-    { text: 'Last Updated', value: 'carbs', align: 'start', sortable: false },
+    { text: 'In Use', value: 'carbs', align: 'start', sortable: true },
+    { text: 'Version', value: 'carbs', align: 'start', sortable: true },
+    { text: 'Memo', value: 'carbs', align: 'start', sortable: false },
     { text: 'Misc', value: 'carbs', align: 'start', sortable: false }
   ]
 

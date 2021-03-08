@@ -69,11 +69,10 @@
       color="primary"
       dark
     >
-      <!--Google Blue: color="blue darken-3" -->
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-        <span class="hidden-sm-and-down" @click="$router.push('/')">
-          ERP
+        <span class="hidden-sm-and-down">
+          {{ h1 }}
         </span>
       </v-toolbar-title>
       <!-- <v-text-field
@@ -97,7 +96,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="default" text class="mr-5" v-bind="attrs" v-on="on" large>
-            <v-icon>mdi-account-circle</v-icon>
+            <v-icon>mdi-cog</v-icon>
           </v-btn>
         </template>
         <v-list>
@@ -107,7 +106,8 @@
                 <v-container>
                   <v-row>
                     <v-col cols="4" class="px-0">
-                      <v-img :src="dP" height="60" width="60"></v-img>
+                      <!-- <v-img :src="dP" height="60" width="60"></v-img> -->
+                      <v-icon x-large class="mt-7 ml-4">mdi-account-circle</v-icon>
                     </v-col>
                     <v-col cols="8" class="px-0 pl-4">
                       <span>{{ username }}</span>
@@ -122,10 +122,9 @@
                   class="primary"
                   @click="$router.push('/account/updatePassword')"
                 >
-                  <v-icon>mdi-cog</v-icon>
-                  <span> 修改密碼</span>
+                  <span>Update Password</span>
                 </v-btn>
-                <v-btn class="warning" @click="handleLogout">登出</v-btn>
+                <v-btn class="warning" @click="handleLogout">Sign out</v-btn>
               </v-card-actions>
             </v-card>
           </v-list-item>
@@ -141,27 +140,13 @@
         </v-row>
       </v-container>
     </v-main>
-    <!-- <v-btn
-      bottom
-      color="primary"
-      dark
-      fab
-      fixed
-      left
-      @click="$vuetify.theme.dark = !$vuetify.theme.dark"
-    >
-      <v-icon>mdi-toggle-switch</v-icon>
-    </v-btn> -->
     <v-btn
       bottom
       :color="!$vuetify.theme.dark ? 'primary' : '#fb8c00'"
       fab
       fixed
       left
-      @click="
-        ;($vuetify.theme.dark = !$vuetify.theme.dark),
-          (theme = !$vuetify.theme.dark)
-      "
+      @click="handleToggleTheme"
     >
       <v-icon v-show="$vuetify.theme.dark">mdi-white-balance-sunny</v-icon>
       <v-icon v-show="!$vuetify.theme.dark">mdi-moon-waning-crescent</v-icon>
@@ -180,28 +165,28 @@
     <v-dialog v-model="dialog" width="800px">
       <v-card>
         <v-card-title class="primary white--text">
-          當前版本
+          Version
         </v-card-title>
         <v-card-text class="mt-4">
-          Version 1.0.0 <br />
-          <strong class="primary--text">更新時間： </strong>
-          2021/3/4 上午12:56:10 <br />
+          v{{ version }} <br />
+          <strong class="primary--text">Last Updated: </strong>
+          {{ lastUpdated }} <br />
           <div class="mt-7">
-            Copyright © 2021
+            Copyright © {{ crDate }}
             <a
               class="primary--text text-decoration-none"
               href=""
               target="_blank"
             >
-              123.
+              {{ crSource }}.
             </a>
-            123 All rights reserved.
+            &nbsp;All rights reserved.
           </div>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="dialog = false" large>
-            <strong>關閉</strong>
+            <strong>Close</strong>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -209,15 +194,15 @@
     <v-dialog v-model="errorDialog" width="800px">
       <v-card>
         <v-card-title class="primary white--text">
-          提示
+          Hint
         </v-card-title>
         <v-card-text class="mt-4">
-          <h2 class="mt-4">伺服器錯誤，請稍後再試。</h2>
+          <h2 class="mt-4">Server Error. Please try again later.</h2>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="errorDialog = false" large>
-            <strong>關閉</strong>
+            <strong>Close</strong>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -238,11 +223,33 @@ export default class DefaultLayout extends Vue {
   }
 
   private get companyName() {
-    return 'Company Name'
+    return 'Welcome!'
   }
 
   private get dP() {
     return authStore.user ? authStore.user.photopath : ''
+  }
+
+  private get h1() {
+    return 'Restaurant CMS'
+  }
+
+  private get lastUpdated(): string {
+    return new Date().toLocaleDateString('en',
+      { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }
+    )
+  }
+
+  private get version(): string {
+    return '1.0.0'
+  }
+
+  private get crDate(): string {
+    return '2021'
+  }
+
+  private get crSource(): string {
+    return 'Ire'
   }
 
   private menuSetting: any = {
@@ -272,54 +279,142 @@ export default class DefaultLayout extends Vue {
 
   private handleUpdateRoute(item: any) {
     this.currentTabName = item.route
-    this.$router.push({ name: item.route })
+    this.$router.push(
+      {
+        name: item.route,
+        params: {
+          tabTitle: item.tabTitle
+        }
+      })
+  }
+
+  private handleToggleTheme(): void {
+    this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    window.localStorage.setItem('tm', this.$vuetify.theme.dark.toString())
   }
 
   private items: Array<any> = [
     {
-      icon: 'mdi-store',
-      'icon-alt': 'mdi-store-outline',
-      text: 'Institutions',
+      icon: 'mdi-chart-areaspline',
+      'icon-alt': 'mdi-chart-areaspline-variant',
+      text: 'Overview',
+      model: false,
+      children: [
+        {
+          text: 'Reports',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'overview'
+        }
+      ]
+    },
+    {
+      icon: 'mdi-cart',
+      'icon-alt': 'mdi-cart-outline',
+      text: 'Orders',
       model: false,
       children: [
         {
           text: 'Mgmt',
           icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'store'
+          route: 'orders'
+        }
+      ]
+    },
+    {
+      icon: 'mdi-database',
+      'icon-alt': 'mdi-database-outline',
+      text: 'Inventory',
+      model: false,
+      children: [
+        {
+          text: 'Mgmt',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'ingredients',
+          tabTitle: 'Inventory Management'
+        }
+      ]
+    },
+    {
+      icon: 'mdi-silverware',
+      'icon-alt': 'mdi-silverware',
+      text: 'Menus',
+      model: false,
+      children: [
+        {
+          text: 'Menus',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'menus',
+          tabTitle: 'Menus Management'
+        },
+        {
+          text: 'Courses',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'menus-courses',
+          tabTitle: 'Menu Edit'
+        }
+      ]
+    },
+    {
+      icon: 'mdi-ticket-percent',
+      'icon-alt': 'mdi-ticket-percent-outline',
+      text: 'Promotions',
+      model: false,
+      children: [
+        {
+          text: 'Mgmt',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'promotions'
+        }
+      ]
+    },
+    {
+      icon: 'mdi-badge-account-horizontal',
+      'icon-alt': 'mdi-badge-account-horizontal-outline',
+      text: 'Employees',
+      model: false,
+      children: [
+        {
+          text: 'Mgmt',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'employees',
+          tabTitle: 'Employees Management'
+        }
+      ]
+    },
+    {
+      icon: 'mdi-account-box-multiple',
+      'icon-alt': 'mdi-account-box-multiple-outline',
+      text: 'Customers',
+      model: false,
+      children: [
+        {
+          text: 'Mgmt',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'customers'
+        }
+      ]
+    },
+    {
+      icon: 'mdi-store',
+      'icon-alt': 'mdi-store-outline',
+      text: 'Stores',
+      model: false,
+      children: [
+        {
+          text: 'Mgmt',
+          icon: 'mdi-checkbox-blank-circle-outline',
+          route: 'stores'
         }
       ]
     },
     {
       icon: 'mdi-cog',
       'icon-alt': 'mdi-cog-outline',
-      text: 'Misc',
+      text: 'Settings',
       model: false,
       children: [
         {
-          text: 'Countries',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'misc-country'
-        },
-        {
-          text: 'Levels',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'misc-level'
-        },
-        {
-          text: 'Rankings',
-          icon: 'mdi-checkbox-blank-circle-outline',
-          route: 'misc-ranking'
-        }
-      ]
-    },
-    {
-      icon: 'mdi-account-cog',
-      'icon-alt': 'mdi-account-cog-outline',
-      text: 'Accounts',
-      model: false,
-      children: [
-        {
-          text: 'Mgmt',
+          text: 'Account Mgmt',
           icon: 'mdi-checkbox-blank-circle-outline',
           route: 'sys'
         }
@@ -342,24 +437,21 @@ export default class DefaultLayout extends Vue {
     }
   }
 
-  private theme: boolean = true
-
-  @Watch('theme')
-  private onThemeChange(newVal: boolean) {
-    window.localStorage.setItem('theme', newVal ? 'light' : 'dark')
-  }
-
   private created() {
     this.currentTabName = this.$route.name ? this.$route.name : ''
   }
 
   private mounted() {
-    const theme = window.localStorage.getItem('theme')
-    // if (theme && theme === 'light') {
-    //   this.$vuetify.theme.dark = false
-    // } else if (theme && theme === 'dark') {
-    //   this.$vuetify.theme.dark = true
-    // }
+    const theme = window.localStorage.getItem('tm')
+    if (theme) {
+      if (theme === 'true') {
+        this.$vuetify.theme.dark = true
+      } else {
+        this.$vuetify.theme.dark = false
+      }
+    } else {
+      window.localStorage.setItem('tm', 'false')
+    }
   }
 }
 </script>

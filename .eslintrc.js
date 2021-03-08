@@ -11,9 +11,10 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'comma-dangle': 'off',
+    'arrow-parens': 'off',
     'linebreak-style': 0,
     'space-before-function-paren': 0,
-    'arrow-parens': 1,
     indent: ['off'],
     'no-irregular-whitespace': 'off',
     'no-unused-vars': 'off',
