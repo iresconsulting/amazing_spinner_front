@@ -9,7 +9,7 @@
 # push to ACR
 az login --username $1 --password $2
 az acr login --name $3 --username $3 --password $4
-docker build --file Dockerfile -t $DOCKER_IMAGE_NAME .
+docker build --file Dockerfile -t $5 .
 
 echo ⭐ Image built locally...
 
