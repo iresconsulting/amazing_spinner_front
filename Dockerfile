@@ -4,8 +4,7 @@ RUN mkdir -p /usr/src/nuxt-frontend
 WORKDIR /usr/src/nuxt-frontend
 COPY . .
 
-ENV NUXT_ENV_PROXY_URL=https://localhost:8081
-# ENV NUXT_ENV_APP_INSIGHT_KEY=
+ENV NUXT_ENV_API_URL=https://localhost:8081
 
 RUN npm install --production && npm run build
 

@@ -4,11 +4,11 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'Restaurant CMS',
+    title: 'DFON Canvas',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Restaurant CMS' }
+      { hid: 'description', name: 'description', content: 'DFON Canvas' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
@@ -18,9 +18,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/vee-validate.js',
     '~/plugins/axios'
-    // '~/plugins/tiptap-vuetify'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -42,8 +40,18 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    'cookie-universal-nuxt'
+    '@nuxtjs/dayjs'
   ],
+
+  dayjs: {
+    locales: ['en'],
+    defaultLocale: 'en',
+    defaultTimeZone: 'Asia/Taipei',
+    plugins: [
+      'utc', // import 'dayjs/plugin/utc'
+      'timezone' // import 'dayjs/plugin/timezone'
+    ] // Your Day.js plugin
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
@@ -70,7 +78,7 @@ export default {
     analyze: process.env.NODE_ENV !== 'production'
   },
   env: {
-    PROXY_URL: process.env.NUXT_ENV_PROXY_URL
+    API_URL: process.env.NUXT_ENV_API_URL
   },
   loading: {
     color: '#fff',

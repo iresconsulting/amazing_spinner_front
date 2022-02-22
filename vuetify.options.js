@@ -17,10 +17,6 @@ export default {
       dark: {
         primary: '#181818',
         secondary: '#222d32',
-        // error: '#eee',
-        // warning: '#ccc',
-        // success: '#bbb',
-        // default: '#aaa',
         anchor: '#fff'
       }
     }
