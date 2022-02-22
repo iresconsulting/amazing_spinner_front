@@ -15,7 +15,6 @@
     "lint-fix": "eslint-auto-fix"
   },
   "dependencies": {
-    "@baoshishu/vue-editor": "^0.3.0",
     "@nuxt/types": "^2.14.5",
     "@nuxt/typescript-build": "^2.0.3",
     "@nuxt/typescript-runtime": "^2.0.0",
