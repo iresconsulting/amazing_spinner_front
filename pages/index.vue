@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title">神奇轉盤 #069</div>
+    <div class="title">香奈兒神奇轉盤</div>
     <div class="board">
       <!-- <div class="loading" v-show="isLoading">
         <default-loading></default-loading>
@@ -28,17 +28,17 @@
       </div>
     </div>
     <div class="toolbar">
-      <v-btn color="primary" small @click="handleGenCoord" :disabled="isLoading">generate</v-btn>
-      <v-btn class="ml-2" color="warning" small @click="handleRevertCoord" :disabled="blackList.length === 0">revert</v-btn>
-      <v-btn class="ml-2" small @click="handleClearCoord">clear</v-btn>
+      <v-btn color="primary" small @click="handleGenCoord" :disabled="isLoading">開獎</v-btn>
+      <v-btn class="ml-2" color="warning" small @click="handleRevertCoord" :disabled="blackList.length === 0">上一步</v-btn>
+      <v-btn class="ml-2" small @click="handleClearCoord">清空</v-btn>
       <v-btn
         class="ml-2"
         color="secondary"
         small
         @click="handleShowCoord"
-      >{{ isShowCoord ? 'hide': 'show' }}</v-btn>
+      >{{ isShowCoord ? '隱藏': '顯示' }}</v-btn>
     </div>
-    <div class="display">latest result: {{ lastGenDisplay }}</div>
+    <div class="display">開獎結果: {{ lastGenDisplay }}</div>
   </div>
 </template>
 
