@@ -63,7 +63,7 @@ interface Coord {
   }
 })
 export default class Index extends Vue {
-  private matrixLength = 20
+  private matrixLength = 5
 
   private matrix: Block[][] = []
 
